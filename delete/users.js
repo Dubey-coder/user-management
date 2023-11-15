@@ -1,6 +1,7 @@
 //users.js - Define Express routes for user management.
 //javascript
 //Copy code
+
 // users.js
 const express = require('express');
 const router = express.Router();
@@ -16,10 +17,10 @@ router.get('/users', async (req, res) => {
   }
 });
 
-// Get user by email
-router.get('/users/:email', async (req, res) => {
+// Get user by ID
+router.get('/users/:userId', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.params.email });
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -32,7 +33,7 @@ router.get('/users/:email', async (req, res) => {
 // Add a new user
 router.post('/users', async (req, res) => {
   const user = new User({
-    email: req.body.email,
+    name: req.body.name,
   });
 
   try {
@@ -43,27 +44,22 @@ router.post('/users', async (req, res) => {
   }
 });
 
-// Update user by email
-router.put('/users/:email', async (req, res) => {
+// Update user by ID
+router.put('/users/:userId', async (req, res) => {
   try {
-    const user = await User.findOneAndUpdate(
-      { email: req.params.email },
-      { email: req.body.email },
+    const user = await User.findByIdAndUpdate(
+      req.params.userId,
+      { name: req.body.name },
       { new: true }
     );
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json(user);
-  } 
-  catch (error) {
-    res.status(400).json({ message: error.message });
+  } catch (error) {
   }
 });
 
-// Delete user by email
-router.delete('/users/:email', async (req, res) => {
-  try {
-    const user = await User.findOneAndDelete({ email: req.params.email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+
+
+
