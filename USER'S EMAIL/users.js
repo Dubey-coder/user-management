@@ -55,7 +55,8 @@ router.put('/users/:email', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     res.json(user);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
@@ -65,4 +66,4 @@ router.delete('/users/:email', async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ email: req.params.email });
     if (!user) {
-      return res.status(404).json({ message
+      return res.status(404).json({ message: 'User not found' });
