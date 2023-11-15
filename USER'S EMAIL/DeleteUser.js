@@ -1,8 +1,7 @@
 //DeleteUser.js - Allow the user to delete a user.
 //jsx
-//Copy code
 
-// DeleteUser.js
+//DeleteUser.js
 import React, { useEffect } from 'react';
 
 const DeleteUser = ({ match, history }) => {
